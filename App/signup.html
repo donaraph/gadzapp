@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img src="gadzapp_logo.png" alt="Logo">
+    </div>
+    <div class="signup-form">
+      <h2>Sign Up</h2>
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit">Sign Up</button>
+      </form>
+      <p>Already have an account? <a href="signin.html">Sign In</a></p>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js"></script>
+  <script type="module">
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyB6cPmGRqHZibKoNh_0dCGPcHijb8tWMgg",
+      authDomain: "gadzapp-b44c8.firebaseapp.com",
+      projectId: "gadzapp-b44c8",
+      storageBucket: "gadzapp-b44c8.appspot.com",
+      messagingSenderId: "395716371157",
+      appId: "1:395716371157:web:9166f95858744b2251785c",
+      measurementId: "G-FSG2YJ02TN"
+    };
+
+    // Initialize Firebase
+    import { initializeApp } from 'firebase/app';
+    import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const signupForm = document.getElementById('signupForm');
+
+    signupForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // User registered successfully
+          const user = userCredential.user;
+          console.log('User registered:', user);
+          // Redirect to another page or perform other actions
+          window.locatn.hioref = 'signin.html';
+        })
+        .catch((error) => {
+          // Handle errors
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error('Error:', errorCode, errorMessage);
+        });
+    });
+  </script>
+</body>
+</html>
